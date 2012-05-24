@@ -1,5 +1,7 @@
 /// Click sensor
 
+ /// A CHANGE  =P
+
 key owner_uuid = NULL_KEY;
 
 string message_damage = "DMG";
