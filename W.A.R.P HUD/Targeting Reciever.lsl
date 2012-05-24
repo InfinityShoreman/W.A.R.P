@@ -99,30 +99,19 @@ default
 
     sensor(integer avatars_detected)
     {
-        //if (!detected)
-        {
-            set_green();
-            vector my_current_position      = llGetPos();
-            vector detected_target_position = llDetectedPos(0);
-            float  detected_target_distance = llVecDist(my_current_position, detected_target_position);
-            string detected_target_uuid     = llDetectedKey(0);
-            notify_click_sensor(detected_target_distance, detected_target_uuid);
-            set_text(detected_target_distance, detected_target_uuid);            
-        }
-            
-        //detected = TRUE;
+        set_green();
+        vector my_current_position      = llGetPos();
+        vector detected_target_position = llDetectedPos(0);
+        float  detected_target_distance = llVecDist(my_current_position, detected_target_position);
+        string detected_target_uuid     = llDetectedKey(0);
+        notify_click_sensor(detected_target_distance, detected_target_uuid);
+        set_text(detected_target_distance, detected_target_uuid);     
     }
 
     no_sensor()
     {
-        //if (detected)
-        {
-            notify_click_sensor(0, NULL_KEY);
-            clear_text();
-            set_red();
-            
-        }
-            
-        //detected = FALSE;
+        notify_click_sensor(0, NULL_KEY);
+        clear_text();
+        set_red();
     }
 }

@@ -50,8 +50,14 @@ default
         {
             if (level & edge & CONTROL_ML_LBUTTON)
             {
-                llRegionSayTo(owner_uuid,           channel_follower,        detected_target_uuid);
-                llRegionSayTo(owner_uuid,           channel_sfx,             detected_target_distance);
+                llRegionSayTo(owner_uuid, channel_follower, detected_target_uuid);
+                
+                llRegionSayTo(owner_uuid, channel_sfx, detected_target_distance);
+                
+                /// notify opponent that they've been hit 
+                /// then they can update their health meter and 
+                /// they can then send you their health count
+                /// so we can update our opponent health meter
                 llRegionSayTo(detected_target_uuid, channel_opponent_health, message_damage); 
             }
         }
