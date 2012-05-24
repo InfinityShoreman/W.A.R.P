@@ -1,6 +1,3 @@
-//Another Change ;)
-//I hope this works..
-
 /// Animation
 
 integer rot = 0;
