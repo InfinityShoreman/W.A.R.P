@@ -1,5 +1,3 @@
-/// test for manual CHANGED_ALLOWED_DROP
-
 /// Aim Detection -- IN TESTING
 
 default
