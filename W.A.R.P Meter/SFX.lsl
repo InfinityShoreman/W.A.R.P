@@ -1,5 +1,7 @@
 /// sfx
 
+/// GITHUB RULES!
+
 string sfx_critHit  = "W.A.R.P sfx_critHit";
 string sfx_swordHit = "W.A.R.P sfx_swordHit";
 string sfx_heavyHit = "W.A.R.P sfx_heavyHit";
