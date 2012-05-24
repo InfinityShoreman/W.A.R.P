@@ -1,5 +1,7 @@
 /// Person Follow Script
 
+/// TEST AGAIN -- AGAIN
+
 /// Avatar Follower script, by Dale Innis
 /// Do with this what you will, no rights reserved
 /// See https://wiki.secondlife.com/wiki/AvatarFollower for instructions and notes
