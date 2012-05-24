@@ -1,6 +1,6 @@
 /// Person Follow Script
 
-/// TEST AGAIN
+/// TEST AGAIN -- AGAIN
 
 /// Avatar Follower script, by Dale Innis
 /// Do with this what you will, no rights reserved
