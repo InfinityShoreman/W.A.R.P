@@ -45,7 +45,7 @@ damage() { /// Takes standard damage (later will be multiplied by soul level)
                           <1.0, 1.0, 0.0>,    // top_size
                           <0.0, 0.0, 0.0>]);  // top_Shear
 
-    if (health >= 0.98) { dead(); }
+    if      (health >= 0.98) { dead(); }
     else if (health >= 0.9)  { imminentDeath(); }
     else if (health >= 0.66) { redPhase(); }
     else if (health >= 0.33) { orangePhase(); }
