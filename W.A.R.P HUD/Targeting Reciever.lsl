@@ -2,8 +2,9 @@
 
 /// methods
 /// on/off switch for targetng
-/// messages the targeting system to turn on or off (called on click), updates color for the following instances.
-/// (on with target/on with no target/off)
+/// messages the targeting system to turn on or off (called on click), updates color for the following instances:
+/// (on with target | on with no target | off)
+/// Also, enters a blue color state for when it is first switched on but no avatars were detected
 
 key owner_uuid = NULL_KEY;
 
@@ -94,11 +95,16 @@ default {
         string detected_target_uuid     = llDetectedKey(0);
         notify_click_sensor(detected_target_distance, detected_target_uuid);
         set_text(detected_target_distance, detected_target_uuid);
+        detected= TRUE;
     }
 
     no_sensor() {
-        notify_click_sensor(0, NULL_KEY);
-        clear_text();
-        set_red();
+        if (detected) {
+            notify_click_sensor(0, NULL_KEY);
+            clear_text();
+            set_red();
+        }
+
+        detected = FALSE;
     }
 }
