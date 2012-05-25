@@ -48,8 +48,7 @@ string message_damage = "DMG";
 
 string owner_name = "";
 
-fullHeal()  /// Heals to 100% health
-{
+fullHeal() { /// Heals to 100% health
     health = 0.0;
 
     llSetPrimitiveParams([PRIM_TYPE,
@@ -62,8 +61,7 @@ fullHeal()  /// Heals to 100% health
                           <0.0, 0.0, 0.0>]);  // top_Shear
 }
 
-damage()  /// Takes standard damage (later will be multiplied by soul level)
-{
+damage() { /// Takes standard damage (later will be multiplied by soul level)
     health = health + 0.025;
 
     llSetPrimitiveParams([PRIM_TYPE,
@@ -83,67 +81,57 @@ damage()  /// Takes standard damage (later will be multiplied by soul level)
 
 }
 
-dead() /// Currently only announces death and resets status to green. Will later make a call to the soul script.
-{
+dead() { /// Currently only announces death and resets status to green. Will later make a call to the soul script.
     llOwnerSay("Opponent has died.");
     greenPhase();
     fullHeal();
 }
 
 /// The following are stages for the health bar's color/actions
-greenPhase()
-{
+greenPhase() {
     llTargetOmega(<0.0, 0.0, 0.0>, PI, 0.05);
     llSetPrimitiveParams([PRIM_COLOR, ALL_SIDES, <0.0, 1.0, 0.0>, 0.5]);
 }
 
-orangePhase()
-{
+orangePhase() {
     llTargetOmega(<0.0, 0.0, 0.0>, PI, 0.05);
     llSetPrimitiveParams([PRIM_COLOR, ALL_SIDES, <1.0, 0.5, 0.0>, 0.5]);
 }
 
-redPhase()
-{
+redPhase() {
     llTargetOmega(<0.0, 0.0, 0.0>, PI, 0.05);
     llSetPrimitiveParams([PRIM_COLOR, ALL_SIDES, <1.0, 0.0, 0.0>, 0.9]);
 }
 
-imminentDeath()
-{
+imminentDeath() {
     llSay(0, owner_name + " is critically injured!");
     llTargetOmega(<0.0, 0.0, 0.9>, PI, 0.05);
     llSetPrimitiveParams([PRIM_COLOR, ALL_SIDES, <1.0, 0.0, 0.0>, 0.9]);
 }
 
 /// Checks the current phase and returns it as a string.
-string phaseCheck()
-{
-    if      (health >= 0.98) { return "Dead?"; }
+string phaseCheck() {
+    if (health >= 0.98) { return "Dead?"; }
     else if (health >= 0.9)  { return "imminentDeath"; }
     else if (health >= 0.66) { return "redPhase"; }
     else if (health >= 0.33) { return "orangePhase"; }
     else                     { return "greenPhase"; }
 }
 
-default
-{
-    state_entry()
-    {
+default {
+    state_entry() {
         owner_name = llKey2Name(llGetOwner());
         greenPhase();
         fullHeal();
         llListen(comm_channel, "", "", "");
     }
 
-    link_message(integer source, integer num, string str, key id)
-    {
+    link_message(integer source, integer num, string str, key id) {
         /// listens for damage and inflicts it on the player.
         if (str == message_damage) { damage(); }
     }
 
-    listen( integer channel, string name, key id, string message )
-    {
+    listen(integer channel, string name, key id, string message) {
         if (message == message_damage) { damage(); }
 
     }

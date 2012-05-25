@@ -12,13 +12,15 @@ key owner_uuid    = NULL_KEY;
 key opponent_uuid = NULL_KEY;
 
 /// notifies soul meter to send your soul count to your opponent
-notify_soul_meter(key uuid) {
+notify_soul_meter(key uuid)
+{
     string message_dead   = "Dead";
     integer link_soul_meter = 3;
     llMessageLinked(link_soul_meter, 0, message_dead, uuid);
 }
 
-fullHeal() { /// Heals to 100% health
+fullHeal()  /// Heals to 100% health
+{
     health = 0.0;
 
     llSetPrimitiveParams([PRIM_TYPE,
@@ -33,7 +35,8 @@ fullHeal() { /// Heals to 100% health
     llRegionSayTo(owner_uuid, sfx_channel, message_spawn);
 }
 
-damage() { /// Takes standard damage (later will be multiplied by soul level)
+damage()  /// Takes standard damage (later will be multiplied by soul level)
+{
     health = health + 0.025;
 
     llSetPrimitiveParams([PRIM_TYPE,
@@ -52,7 +55,8 @@ damage() { /// Takes standard damage (later will be multiplied by soul level)
     else                     { greenPhase(); }
 }
 
-dead() { /// Currently only announces death and resets status to green. Will later make a call to the soul script.
+dead() /// Currently only announces death and resets status to green. Will later make a call to the soul script.
+{
     llOwnerSay("You have died.");
     greenPhase();
     fullHeal();
@@ -60,29 +64,34 @@ dead() { /// Currently only announces death and resets status to green. Will lat
 }
 
 /// The following are stages for the health bar's color/actions
-greenPhase() {
+greenPhase()
+{
     llTargetOmega(<0.0, 0.0, 0.0>, PI, 0.05);
     llSetPrimitiveParams([PRIM_COLOR, ALL_SIDES, <0.0, 1.0, 0.0>, 0.5]);
 }
 
-orangePhase() {
+orangePhase()
+{
     llTargetOmega(<0.0, 0.0, 0.0>, PI, 0.05);
     llSetPrimitiveParams([PRIM_COLOR, ALL_SIDES, <1.0, 0.5, 0.0>, 0.5]);
 }
 
-redPhase() {
+redPhase()
+{
     llTargetOmega(<0.0, 0.0, 0.0>, PI, 0.05);
     llSetPrimitiveParams([PRIM_COLOR, ALL_SIDES, <1.0, 0.0, 0.0>, 0.9]);
 }
 
-imminentDeath() {
+imminentDeath()
+{
     llSay(0, llKey2Name(owner_uuid) + " is critically injured!");
     llTargetOmega(<0.0, 0.0, 0.9>, PI, 0.05);
     llSetPrimitiveParams([PRIM_COLOR, ALL_SIDES, <1.0, 0.0, 0.0>, 0.9]);
 }
 
 /// Checks the current phase and returns it as a string.
-string phaseCheck() {
+string phaseCheck()
+{
     if (health >= 0.98) { return "Dead?"; }
     else if (health >= 0.9)  { return "imminentDeath"; }
     else if (health >= 0.66) { return "redPhase"; }
@@ -90,34 +99,43 @@ string phaseCheck() {
     else                     { return "greenPhase"; }
 }
 
-default {
-    state_entry() {
+default
+{
+    state_entry()
+    {
         owner_uuid = llGetOwner();
         greenPhase();
         fullHeal();
         llListen(comm_channel, "", "", "");
     }
 
-    touch_start(integer p) {
+    touch_start(integer p)
+    {
         /// Checks if the player is in critical condition, if so it allows the player to
         /// attempt a heal by exiting mouselook mode and clicking their now spinning healthbar.
         /// Continued use of this feature in later versions iffy.
-        if (phaseCheck() == "imminentDeath") {
+        if (phaseCheck() == "imminentDeath")
+        {
             greenPhase();
             fullHeal();
-        } else {
+        }
+        else
+        {
             llOwnerSay("Try clicking in mouselook mode.");
         }
     }
 
-    link_message(integer source, integer num, string str, key id) {
+    link_message(integer source, integer num, string str, key id)
+    {
         /// listens for damage and inflicts it on the player.
         if (str == message_damage) { damage(); }
     }
 
-    listen(integer channel, string name, key uuid, string message) {
+    listen(integer channel, string name, key uuid, string message)
+    {
         /// listens for damage inflicted upon you by your opponent
-        if (message == message_damage) {
+        if (message == message_damage)
+        {
             opponent_uuid = uuid;
             damage();
         }
