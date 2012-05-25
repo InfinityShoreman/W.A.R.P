@@ -95,7 +95,7 @@ default {
         string detected_target_uuid     = llDetectedKey(0);
         notify_click_sensor(detected_target_distance, detected_target_uuid);
         set_text(detected_target_distance, detected_target_uuid);
-        detected= TRUE;
+        detected = TRUE;
     }
 
     no_sensor() {
