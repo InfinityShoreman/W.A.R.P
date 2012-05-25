@@ -18,6 +18,12 @@ notify_soul_meter(key uuid) {
     llMessageLinked(link_soul_meter, 0, message_dead, uuid);
 }
 
+/// when you are hit then broadcast your health level to 
+/// your opponent so that they can update their target health meter
+broadcast_health_level(uuid) {
+    llRegionSayTo(uuid, 203041, (string)health);
+}
+
 fullHeal() { /// Heals to 100% health
     health = 0.0;
 
@@ -118,8 +124,9 @@ default {
     listen(integer channel, string name, key uuid, string message) {
         /// listens for damage inflicted upon you by your opponent
         if (message == message_damage) {
-            opponent_uuid = uuid;
             damage();
+            opponent_uuid = uuid;
+            broadcast_health_level(opponent_uuid);
         }
 
     }
