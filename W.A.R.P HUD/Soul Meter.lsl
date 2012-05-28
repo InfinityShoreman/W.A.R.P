@@ -9,8 +9,6 @@ string message_dead   = "Dead";
 
 integer master_soul_count = 1;
 
-integer channel_soul_meter = 192837;
-
 update_soul_meter(integer soul_count) {
     if      (soul_count > 100) { soul_count = 100; }
     else if (soul_count < 5)   { soul_count = 5; }
@@ -32,9 +30,6 @@ default {
         if (message == message_update) {
             master_soul_count = soul_count;
             update_soul_meter(soul_count);
-        } else if (message == message_dead) {
-            /// broadcast soul count to opponent who killed you
-            llRegionSayTo(target_uuid, channel_soul_meter, (string)master_soul_count);
         }
     }
 }
