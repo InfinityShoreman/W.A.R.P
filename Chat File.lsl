@@ -2,12 +2,13 @@
 
 If you ask me I think we've gone too far ahead of ourselves.  Maybe we should roll it 
 back and test the HUD with one item of functionality at a time?  Also, maybe we shouldn't
-go any furthur until we have this outline down pat?
+go any furthur until we have this outline down pat?  Of course we should definately test
+your idea to fix the current sound bug first.
 
 **************************************************************************************************
 * Current Outline																	
 * Feel free to flesh this out as required
-* prim names and variables aren't exact
+* prim names and variable names aren't exact
 **************************************************************************************************
 
 A) | name: Targeting Receiver | channel: N/A | link: 1 |
