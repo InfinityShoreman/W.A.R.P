@@ -1,5 +1,8 @@
 //Adding this file so we can leave eachother messages when necessary.
 
+If you ask me I think we've gone too far ahead of ourselves.  Maybe we should roll it 
+back and test the HUD with one item of functionality at a time?
+
 Targeting Receiver
 	1) Switch system on/off
 
