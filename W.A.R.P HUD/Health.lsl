@@ -3,6 +3,7 @@
 float health = 0.0; /// Goes from 0.0 to 1.0 with 0.0 being full health
 
 integer comm_channel = 203040;
+integer opponent_health_channel = 203041;
 integer sfx_channel  = 1112;
 
 string message_damage = "DMG";
@@ -21,7 +22,7 @@ notify_soul_meter(key uuid) {
 /// when you are hit then broadcast your health level to 
 /// your opponent so that they can update their target health meter
 broadcast_health_level(uuid) {
-    llRegionSayTo(uuid, 203041, (string)health);
+    llRegionSayTo(uuid, opponent_health_channel, (string)health);
 }
 
 fullHeal() { /// Heals to 100% health
